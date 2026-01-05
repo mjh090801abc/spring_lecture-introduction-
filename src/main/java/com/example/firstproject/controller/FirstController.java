@@ -14,4 +14,11 @@ public class FirstController {
 
         return "greetings"; // 응답 페이지 설정 (브라우저로 전송)
     }
+
+    @GetMapping("/bye")
+    public String seeYouNext(Model model) {
+        model.addAttribute("nickname", "문정훈");
+
+        return "goodbye";
+    }
 }
