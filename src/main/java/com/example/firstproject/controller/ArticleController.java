@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @Slf4j // 로깅을 위한 어노테이션
 public class ArticleController {
@@ -25,7 +28,7 @@ public class ArticleController {
 
     @PostMapping("/articles/create")
     public String createArticle(ArticleForm form){
-        log.info(form.toString());
+        log.info(form.toString()); // 화면에서 입력 받은 원본 데이터
 
 //        System.out.println(form.toString()); --> 로깅으로 대체
 
@@ -56,5 +59,17 @@ public class ArticleController {
 
         // 3: 보여줄 페이지 생성
         return "articles/show";
+    }
+
+    @GetMapping("/articles")
+    public String index(Model model) {
+        // 1: 모든 Article을 가져옴
+        List<Article> articleEntityList = articleRepository.findAll();
+
+        // 2: 가져온 Article 묶음을 뷰로 전달
+        model.addAttribute("articleList", articleEntityList);
+
+        // 3: 뷰 페이지 설정
+        return "articles/index"; // articles/index.mustache
     }
 }
