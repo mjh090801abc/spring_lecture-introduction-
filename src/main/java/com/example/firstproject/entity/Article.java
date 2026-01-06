@@ -1,8 +1,14 @@
 package com.example.firstproject.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity // DB가 해당 객체 인식 가능
+@AllArgsConstructor
+@ToString
+@NoArgsConstructor // 디폴트 생성자(매게변수를 가지고 있지 않음)
 public class Article {
 
     @Id
@@ -15,19 +21,4 @@ public class Article {
     @Column
     private String content;
 
-    public Article(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
 }
