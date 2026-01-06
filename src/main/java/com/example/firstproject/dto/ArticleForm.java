@@ -21,6 +21,6 @@ public class ArticleForm {
     }
 
     public Article toEntity() {
-        return new Article();
+        return new Article(null, title, content);
     }
 }
