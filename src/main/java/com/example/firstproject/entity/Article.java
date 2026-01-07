@@ -2,6 +2,7 @@ package com.example.firstproject.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @NoArgsConstructor // 디폴트 생성자(매게변수를 가지고 있지 않음)
+@Getter
 public class Article {
 
     @Id
