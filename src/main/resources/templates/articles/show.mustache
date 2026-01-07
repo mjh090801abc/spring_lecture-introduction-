@@ -9,17 +9,16 @@
     </tr>
     </thead>
     <tbody>
-        {{#article}}
+    {{#article}}
         <tr>
             <th>{{id}}</th>
             <th>{{title}}</th>
             <td>{{content}}</td>
         </tr>
-        {{/article}}
+    {{/article}}
     </tbody>
 </table>
 
-<!-- article.id로 한 이유는 controller 에서 key를 article로 했기 때문 -->
 <a href="/articles/{{article.id}}/edit" class="btn btn-primary">Edit</a>
 <a href="/articles">Go to Article List</a>
 
