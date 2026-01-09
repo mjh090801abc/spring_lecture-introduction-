@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Article {
 
     @Id
-    @GeneratedValue // 1, 2, 3, ... 자동 생성 어노테이션
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // DB가 id를 자동 생성 어노테이션
     private Long id; // 대표값 (사람으로 따지면 주민등록번호)
 
     @Column
