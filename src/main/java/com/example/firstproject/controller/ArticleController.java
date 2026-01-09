@@ -7,12 +7,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 @Slf4j // 로깅을 위한 어노테이션
@@ -104,5 +108,24 @@ public class ArticleController {
 
         // 3: 수정 결과 페이지로 리다이랙트 한다
         return "redirect:/articles/" + articleEntity.getId();
+    }
+
+    @GetMapping("/articles/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes rttr) {
+        log.info("삭제 요청");
+
+        // 1: 삭제 대상 가져오기
+        Article target = articleRepository.findById(id).orElse(null);
+        log.info(target.toString());
+
+        // 2: 대상을 삭제
+        if (target != null) {
+            articleRepository.delete(target);
+            // 일회성 메세지이기 떄문에 addFlashAttribute 활용
+            rttr.addFlashAttribute("msg", "삭제 완료");
+        }
+
+        // 3: 결과 페이지로 리다이랙트
+        return "redirect:/articles";
     }
 }
