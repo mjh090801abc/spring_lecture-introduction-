@@ -25,20 +25,22 @@ public class ArticleApiController {
     public List<Article> index() {
         return articleService.index();
     }
-//
-//    @GetMapping("/api/articles/{id}")
-//    // 여기선 단일 Article을 반환할 것이므로 List를 삭제
-//    public Article index(@PathVariable Long id) {
-//        return articleRepository.findById(id).orElse(null);
-//    }
-//
-//    // POST
-//    @PostMapping("/api/articles")
-//    // RequestBody를 활용해서 JSON 데이터를 받기
-//    public Article create(@RequestBody ArticleForm dto) {
-//        Article article = dto.toEntity();
-//        return articleRepository.save(article);
-//    }
+
+    @GetMapping("/api/articles/{id}")
+    // 여기선 단일 Article을 반환할 것이므로 List를 삭제
+    public Article show(@PathVariable Long id) {
+        return articleService.show(id);
+    }
+
+    // POST
+    @PostMapping("/api/articles")
+    // RequestBody를 활용해서 JSON 데이터를 받기
+    public ResponseEntity<Article> create(@RequestBody ArticleForm dto) {
+        Article created = articleService.create(dto);
+        return (created != null) ?
+                ResponseEntity.ok().body(created) :
+                ResponseEntity.notFound().build();
+    }
 //
 //    // PATCH
 //    @PatchMapping("/api/articles/{id}")
