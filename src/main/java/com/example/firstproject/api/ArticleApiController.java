@@ -5,6 +5,8 @@ import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,12 +49,18 @@ public class ArticleApiController {
         log.info("id: {}, article: {}", id, article.toString());
 
         // 2. 대상 엔티티를 조회
+        Article target = articleRepository.findById(id).orElse(null);
 
         // 3. 잘못된 요청 처리(대상이 없거나, id가 다른 경우)
+        if (target == null || id != article.getId()) {
+            // 400, 잘못된 요청 응답!
+            log.info("잘못된 요청! id: {}, article: {}", id, article.toString());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
 
         // 4. 업데이트 및 정상 응답(200)
-
-        return null;
+        Article updated = articleRepository.save(article);
+        return updated;
 
     }
 
