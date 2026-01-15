@@ -59,8 +59,8 @@ public class ArticleApiController {
         }
 
         // 4. 업데이트 및 정상 응답(200)
-
-        Article updated = articleRepository.save(article);
+        target.patch(article);
+        Article updated = articleRepository.save(target);
         return ResponseEntity.status(HttpStatus.OK).body(updated);
 
     }
