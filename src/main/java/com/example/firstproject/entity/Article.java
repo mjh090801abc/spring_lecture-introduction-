@@ -23,4 +23,13 @@ public class Article {
     @Column
     private String content;
 
+    // article을 고친건 수정되고 고치지 않은건 그 전에 적은것이 그대로 저장되도록 PATCH 메소드 작성
+    public void patch(Article article) {
+        if (article.title != null) {
+            this.title = article.title;
+        }
+        if (article.content != null) {
+            this.content = article.content;
+        }
+    }
 }
