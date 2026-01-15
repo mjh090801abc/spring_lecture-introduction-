@@ -3,11 +3,13 @@ package com.example.firstproject.service;
 import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service // 서비스 선언! (서비스 객체를 스프링 부트에 생성)
 public class ArticleService {
     @Autowired // DI
@@ -30,5 +32,11 @@ public class ArticleService {
             return null;
         }
         return articleRepository.save(article);
+    }
+
+    public Article update(Long id, ArticleForm dto) {
+        // 1. 수정용 엔티티 생성
+        Article article = dto.toEntity();
+        log.info("id: {}, article: {}", id, article.toString());
     }
 }
