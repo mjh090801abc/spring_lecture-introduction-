@@ -41,7 +41,7 @@ public class ArticleApiController {
 
     // PATCH
     @PatchMapping("/api/articles/{id}")
-    public ResponseEntity<Object> update(@PathVariable Long id,
+    public ResponseEntity<Article> update(@PathVariable Long id,
                                          @RequestBody ArticleForm dto) {
 
         // 1. 수정용 엔티티 생성
@@ -61,9 +61,29 @@ public class ArticleApiController {
         // 4. 업데이트 및 정상 응답(200)
         target.patch(article);
         Article updated = articleRepository.save(target);
+        // 데이터는 body에 실어서 보냄
         return ResponseEntity.status(HttpStatus.OK).body(updated);
 
     }
 
     // DELETE
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Article> delete(@PathVariable Long id) {
+        // 대상 찾기
+        Article target = articleRepository.findById(id).orElse(null);
+
+        // 잘못된 요청 처리
+        if (target == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        // 대상 삭제
+        articleRepository.delete(target);
+        return ResponseEntity.status(HttpStatus.OK).build();
+
+        // 데이터 반환
+
+
+    }
+
 }
