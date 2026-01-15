@@ -41,8 +41,8 @@ public class ArticleApiController {
 
     // PATCH
     @PatchMapping("/api/articles/{id}")
-    public Article update(@PathVariable Long id,
-                          @RequestBody ArticleForm dto) {
+    public ResponseEntity<Object> update(@PathVariable Long id,
+                                         @RequestBody ArticleForm dto) {
 
         // 1. 수정용 엔티티 생성
         Article article = dto.toEntity();
@@ -59,8 +59,9 @@ public class ArticleApiController {
         }
 
         // 4. 업데이트 및 정상 응답(200)
+
         Article updated = articleRepository.save(article);
-        return updated;
+        return ResponseEntity.status(HttpStatus.OK).body(updated);
 
     }
 
