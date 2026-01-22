@@ -47,7 +47,8 @@ public class ArticleApiController {
     public ResponseEntity<Article> update(@PathVariable Long id,
                                          @RequestBody ArticleForm dto) {
         Article updated = articleService.update(id, dto);
-        return (updated != null) ? ResponseEntity.status(HttpStatus.OK).body(updated) :
+        return (updated != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(updated) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
     }
